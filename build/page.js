@@ -21679,6 +21679,9 @@
 
 	    onPause: function onPause() {
 	        var ret = false;
+	        if (this.state.send_status != 'sending') {
+	            return;
+	        }
 	        this.log("暂停发送");
 	        ret = mailsender.pause(this.reqid);
 	        if (!ret) {
@@ -21690,6 +21693,10 @@
 
 	    onCancel: function onCancel() {
 	        var ret = false;
+
+	        if (this.state.send_status == 'normal') {
+	            return;
+	        }
 	        this.log("取消发送");
 	        ret = mailsender.cancel(this.reqid);
 	        if (!ret) {
@@ -22159,8 +22166,10 @@
 	                this.groups.push({ id: 0, name: "垃圾站" });
 	                this.setState({});
 	                ct_groups = rows;
-	                eventEmitter.emit('groups_loaded');
+	            } else {
+	                ct_groups = this.groups;
 	            }
+	            eventEmitter.emit('groups_loaded');
 	        }.bind(this));
 	        return null;
 	    },

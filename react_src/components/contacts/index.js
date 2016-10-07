@@ -14,8 +14,11 @@ var Contacts = React.createClass({
                 this.groups.push({id:0, name:"垃圾站"});
                 this.setState({});
                 ct_groups = rows;
-                eventEmitter.emit('groups_loaded');
+
+            }else{
+                ct_groups = this.groups;
             }
+            eventEmitter.emit('groups_loaded');
         }.bind(this));
         return null;
     },

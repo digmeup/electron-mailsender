@@ -166,6 +166,9 @@ var SendMail = React.createClass({
 
     onPause:function(){
         var ret = false;
+        if(this.state.send_status != 'sending'){
+            return;
+        }
         this.log("暂停发送");
         ret = mailsender.pause(this.reqid);
         if(!ret){
@@ -177,6 +180,10 @@ var SendMail = React.createClass({
 
     onCancel:function(){
         var ret = false;
+
+        if(this.state.send_status == 'normal'){
+            return;
+        }
         this.log("取消发送");
         ret = mailsender.cancel(this.reqid);
         if(!ret){

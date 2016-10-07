@@ -109,7 +109,7 @@ function send_mail(){
         delete send_task[this.reqid];
         return;
     }
-    console.log("will send mail,", pos);
+    console.log("will send mail,", pos, 'state', this.state);
     this.mailOptions.to = receive.mail;
     this.mailOptions.subject = this.send_content.title;
     this.mailOptions.html = this.send_content.content;

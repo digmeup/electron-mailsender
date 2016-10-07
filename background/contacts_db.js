@@ -1,10 +1,12 @@
 var sqlite = require('sqlite3');
 var electron = require('electron');
 var fs = require('fs');
-if(!fs.existsSync('storage/')){
-    fs.mkdirSync('storage/');
+var userHome = require('user-home');
+if(!fs.existsSync(userHome+'/.MailerSender')){
+    fs.mkdirSync(userHome+'/.MailerSender');
 }
-var db = new sqlite.Database('storage/contacts.db');
+
+var db = new sqlite.Database(userHome+'/.MailerSender/contacts.db');
 
 db.run("create TABLE IF NOT EXISTS contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, mail TEXT NOT NULL, gid INTEGER DEFAULT 0)");
 

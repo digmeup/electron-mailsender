@@ -63,7 +63,7 @@ function init_sender(){
         }
     });
 
-    thisOptions = {
+    this.mailOptions = {
         from:'"'+args.sender_name+'"'+'<'+args.sender+'>',
         replyTo:"pm@wencheka.com"
     };
@@ -105,6 +105,11 @@ function send_mail(){
     var reqid = this.reqid;
     var pos = this.pos;
     var receive = this.mail_list[pos];
+    if(!receive){
+        delete send_task[this.reqid];
+        return;
+    }
+    console.log("will send mail,", pos);
     this.mailOptions.to = receive.mail;
     this.mailOptions.subject = this.send_content.title;
     this.mailOptions.html = this.send_content.content;
@@ -126,6 +131,7 @@ function send_mail(){
                 this.send_content = args.contents[p];
             }
             var smail = send_mail.bind(this);
+            console.log('will send next:', this.pos, 'mail_length', this.mail_list.length);
             setTimeout(smail, parseInt(args.send_interval)*1000);
         }
     }.bind(this));

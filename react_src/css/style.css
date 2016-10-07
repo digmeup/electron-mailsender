@@ -1,0 +1,42 @@
+body{
+    background: #21252b;
+    font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    color:#ddd;
+}
+
+.tabs-wrap {
+    padding: 0;
+    margin: 0;
+}
+
+.tabs li.tab{
+    display:inline-block;
+    text-align: -webkit-match-parent;
+}
+
+.active .tab-item {
+    background: #555;
+    color: #ddd;
+}
+
+.tab-item {
+    padding: 10px 34px;
+    cursor: pointer;
+    color: #888;
+    background: #333;
+}
+
+.tabs-wrap .tab-content.active {
+    background: #555;
+    padding: 1px;
+    position: relative;
+    display:block;
+}
+
+.tabs-wrap .tab-content{
+    display: none;
+}
+
+.tabs-wrap .tab:first-child {
+    margin-right: 10px;
+}

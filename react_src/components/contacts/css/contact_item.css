@@ -1,0 +1,28 @@
+.ct-item {
+    padding: 8px 10px;
+    border-bottom: 1px solid #888;
+    color: #bbb;
+    font-size: 12px;
+}
+
+.ct-item span {
+    margin-left: 14px;
+    position: relative;
+    top: -2px;
+}
+
+.ct-item-btns {
+    float: right;
+}
+
+.ct-item-btns a {
+    color: #999;
+    margin-left: 10px;
+}
+
+.mail-editable {
+    display: inline-block;
+    width: 15em;
+    background: #bbb;
+    color: #333;
+}

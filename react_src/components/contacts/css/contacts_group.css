@@ -1,0 +1,79 @@
+.contacts-group {
+    position: relative;
+    background: #444;
+    margin: 10px 5px;
+}
+
+.cg-header {
+    padding: 8px 10px;
+    font-size: 14px;
+    background: #12753b;
+}
+
+.cg-header input[type="checkbox"] {
+    position: relative;
+    top: 2px;
+}
+
+.cg-btns {
+    float: right;
+}
+
+.cg-btns a {
+    color: #bbb;
+    margin-left: 10px;
+}
+
+.cg-body {
+    border: 1px solid #12753b;
+}
+
+.cg-editable {
+    width: 9em;
+    background: #bbb;
+    display: inline-block;
+    color: #333;
+}
+
+.cg-loadmore {
+    text-align: center;
+    font-size: 12px;
+    border-bottom: 1px dashed #666;
+    margin: 0 35px 12px 35px;
+    cursor: pointer;
+}
+
+.cg-loadmore span {
+    display: inline-block;
+    position: relative;
+    bottom: -7px;
+    background: #444;
+    padding: 0px 10px;
+}
+
+.imp-prog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 20;
+}
+
+.imp-dlg {
+    position: absolute;
+    width: 400px;
+    left: 50%;
+    top: 50%;
+    margin-left: -200px;
+    margin-top: -25px;
+    padding: 20px;
+    background: #666;
+    border-radius: 5px;
+    color: white;
+}
+
+.imp-dlg p b {
+    float: right;
+}

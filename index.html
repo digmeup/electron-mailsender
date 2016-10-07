@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="build/css/page.css"></link>
+    <title>邮件发送器!</title>
+  </head>
+  <body>
+      <div id="container"></div>
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    var events = require('events');
+// 创建 eventEmitter 对象
+    var eventEmitter = new events.EventEmitter();
+    var electron = require('electron');
+    var fs = require('fs');
+    alert = function(msg){
+        electron.remote.dialog.showMessageBox({type:'none',buttons:['好'],title:'警告',message:msg});
+    };
+    prompt = function(title,msg){
+        return electron.remote.dialog.showMessageBox({type:'none',buttons:['否','是'],title:title,message:msg});
+    };
+
+    show_msg = function(title, msg){
+        electron.remote.dialog.showMessageBox({type:'none',buttons:['好'],title:title,message:msg});
+    };
+    window.db = require('./lib/db_proxy');
+    var mailsender = require('./lib/mailsender');
+    var contents = [];
+    var ct_groups = [];
+    db.get_contents(function(ret){
+        if(ret.resp_code < 0){
+            console.log('get contents failed:', ret);
+        }else{
+            contents = ret.cnts;
+        }
+        require('./build/page.js');
+    });
+
+    /*var menu = new electron.remote.Menu();
+    menu.append(new electron.remote.MenuItem({label:"退出", click:function(){
+        electron.remote.app.quit();
+    }}));
+    electron.remote.Menu.setApplicationMenu(menu);*/
+  </script>
+</html>

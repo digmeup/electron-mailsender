@@ -1,0 +1,56 @@
+
+.cnt-item {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.cnt-header {
+    background: #12753b;
+    padding: 6px;
+    text-align: right;
+}
+
+.cnt-header span {
+    float: left;
+}
+
+.cnt-header a {
+    color: #999;
+    margin-left: 10px;
+}
+
+.cnt-body {
+    padding-top: 5px;
+    border: 1px solid #12753b;
+}
+
+.cnt-title {
+    padding: 5px;
+}
+
+.cnt-title input {
+    width: 99%;
+    background: transparent;
+    border: none;
+    height: 30px;
+    line-height: 30px;
+    outline: none;
+    color: #ddd;
+    font-weight: bold;
+    border-bottom: 1px solid #999;
+}
+
+.cnt-content {
+    padding: 5px;
+}
+
+.cnt-content textarea {
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    height: 200px;
+    padding: 0;
+    outline: none;
+    background: #444;
+    color: #bbb;
+}

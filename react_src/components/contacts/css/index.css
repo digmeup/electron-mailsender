@@ -1,0 +1,36 @@
+.add-group-wrap {
+    padding: 11px;
+    border-bottom: 1px solid #999;
+    margin-bottom: 11px;
+}
+
+.add-group-wrap button {
+    background: #3cc374;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #fff;
+    float: right;
+    margin-left:20px;
+}
+
+.add-group-wrap .divder {
+    line-height: 30px;
+}
+
+.cg-group-wrap {
+    padding: 5px;
+}
+
+.cg-group-wrap::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.cg-group-col {
+    position: relative;
+    width: 50%;
+    float: left;
+    min-width: 400px;
+}

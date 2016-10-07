@@ -1,0 +1,1 @@
+electron-packager ./ --platform=win32 --download.mirror=http://npm.taobao.org/mirrors/electron/ --asar.unpack=*.node  --ignore='(/react_src($|/))|(/storage($|/))'  --arch=x64 --overwrite

@@ -93,6 +93,41 @@ function init_sender(){
     }.bind(this), {gid:args.receive_group.id});
 }
 
+function get_receives(){
+    var bcc = '';
+    var true_send = 0;
+    var receive = null;
+    var pos = this.pos;
+    this.send_len = 5;
+    this.will_sends = [];
+    for(var i = pos; i < pos + this.send_len; i++){
+        receive = this.mail_list[i];
+        if(true_send == 0){
+            if(!receive){
+                return -1;
+            }
+            this.mailOptions.to = receive.mail;
+        }else if(true_send == 1){
+            if(!receive){
+                break;
+            }
+            bcc = receive.mail;
+        }else{
+            if(!receive){
+                break;
+            }
+            bcc += (', ' + receive.mail);
+        }
+        this.will_sends.push(receive);
+        true_send++;
+    }
+    this.send_len = true_send;
+    if(bcc){
+        this.mailOptions.bcc = bcc;
+    }
+    return 0;
+}
+
 function send_mail(){
     if(this.state == 'pause' || this.state == 'stop'){
         if(this.state == 'stop'){
@@ -104,22 +139,25 @@ function send_mail(){
     var ipc_sender = this.sender;
     var reqid = this.reqid;
     var pos = this.pos;
-    var receive = this.mail_list[pos];
-    if(!receive){
+
+    var cb = get_receives.bind(this);
+    var ret =  cb();
+    if(ret < 0){
         delete send_task[this.reqid];
         return;
     }
-    console.log("will send mail,", pos, 'state', this.state);
-    this.mailOptions.to = receive.mail;
+
+    console.log("will send mail,", pos,'send_len:', this.send_len, 'state', this.state );
+    //this.mailOptions.to = receive.mail;
     this.mailOptions.subject = this.send_content.title;
     this.mailOptions.html = this.send_content.content;
     this.transporter.sendMail(this.mailOptions, function(error, info){
         if(error){
-            this.sender.send('send_mail_progress', {reqid:this.reqid, status:'MAILS_SEND_FAILED', mail:receive, error:error, progress:((pos+1)+'/'+this.mail_list.length), opts:this.mailOptions});
+            this.sender.send('send_mail_progress', {reqid:this.reqid, status:'MAILS_SEND_FAILED', mails:this.will_sends, pos:pos+this.send_len, error:error, progress:((pos+this.send_len)+'/'+this.mail_list.length), opts:this.mailOptions});
         }else{
-            this.sender.send('send_mail_progress', {reqid:this.reqid, status:'MAILS_SEND_DONE', mail:receive, info:info, progress:((pos+1)+'/'+this.mail_list.length), opts:this.mailOptions});
+            this.sender.send('send_mail_progress', {reqid:this.reqid, status:'MAILS_SEND_DONE', mails:this.will_sends, pos:pos+this.send_len, info:info, progress:((pos+this.send_len)+'/'+this.mail_list.length), opts:this.mailOptions});
         }
-        this.pos++;
+        this.pos += this.send_len;
         if(this.pos >= this.mail_list.length){//发件结束
             this.sender.send('send_mail_end', {reqid:this.reqid, status:'DONE'});
             delete send_task[this.reqid];
@@ -131,8 +169,14 @@ function send_mail(){
                 this.send_content = args.contents[p];
             }
             var smail = send_mail.bind(this);
-            console.log('will send next:', this.pos, 'mail_length', this.mail_list.length);
-            setTimeout(smail, parseInt(args.send_interval)*1000);
+            console.log('will send next: ', this.pos, 'mail_length', this.mail_list.length);
+            var extrTime = parseInt(Math.random() * 10) * 1000;
+            if(!this.pos % 50){
+                extrTime = 20 * 60 * 100;
+            }
+            var sleept = parseInt(args.send_interval)*1000 + extrTime;
+            console.log('will sleep:', sleept);
+            setTimeout(smail, sleept);
         }
     }.bind(this));
 }

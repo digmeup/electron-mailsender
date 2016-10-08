@@ -128,7 +128,12 @@ var SendMail = React.createClass({
     onSendProgress:function(ret){
         console.log('onSendProgress', ret);
         if(ret.status == 'MAILS_SEND_FAILED'){
-            this.log('邮件："'+ret.mail.mail+'" 发送失败，原因：'+ret.error.response);
+            var lg = ''
+            for(var i = 0; i < ret.mails.length; i++){
+                lg +='邮件："'+ret.mails[i].mail+'" 发送失败，原因：'+ret.error.response+"\n";
+                this.log(lg);
+            }
+
         }else if(ret.status == 'MAILS_SEND_DONE'){
 
         }
